@@ -1,0 +1,22 @@
+body {
+    background-image: url(background.jpg);
+    color: white;
+}
+
+#wrap {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid red;
+    visibility: hidden;
+}
+
+#menu{
+    position:relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.button{
+}
