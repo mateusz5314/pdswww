@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #efefef;
+            margin: 0;
+        }
+        .flag {
+            border-radius: 100%;
+            border: 5px gray solid;
+            overflow: hidden;
+            width: 300px;
+            height: 300px;
+        }
+        .blackField {
+            height: 34%;
+            background-color: black;
+        }
+        .redField {
+            height: 33%;
+            background-color: red;
+        }
+        .yellowField {
+            height: 34%;
+            background-color: yellow;
+        }
+        #greenland{
+            background: linear-gradient(to bottom, white 50%, red 50%);
+        }
+        .smallCircle {
+            overflow: auto;
+            border-radius: 50%;
+            position: relative;
+            top: 40px;
+            left: 10px;
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(to top, white 50%, red 50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="flag" id="germany">
+        <div class="blackField"></div>
+        <div class="redField"></div>
+        <div class="yellowField"></div>
+    </div>
+
+    <div class="flag" id="greenland">
+        <div class="smallCircle">
+        </div>
+    </div>
+</body>
+</html>
