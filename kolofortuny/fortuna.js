@@ -1,57 +1,146 @@
 
 var game = {
-  zdobyte : 0,
-  zycia : 1,
+  zdobyte : START_SCORE,
+  zycia : START_LIFES,
 }
-console.log(data[0]['country']);
-var elem = document.getElementById("panstwa");
-elem.innerHTML =data[0]['country'];
 
-console.log(data.length);
-console.log(data[0]['country'][2]);
+var answer = "NONE";
 
- for (var i = 0; i < data[0]['country'].length; i += 1) {
-    console.log(data[0]['country'][i]);
-  }
-
-
-addElement("wrap");
 //LISTENERS
-
-document.getElementById("graj").addEventListener("click", Sprawdz_Litery);
-document.getElementById("start").addEventListener("click", startGame);
+document.getElementById(S_PLAY).addEventListener(S_CLICK, sprawdzLitere);
+document.getElementById(S_START).addEventListener(S_CLICK, startGame);
+document.getElementById(S_AUTHOR).addEventListener(S_CLICK, displayAboutAuthor);
+document.getElementById(S_CLOSEABOUT).addEventListener(S_CLICK, hideAboutAuthor);
 console.log(game.zycia);
 
 
 //FUNKCJE
-function Sprawdz_Litery(){
-  var liter = document.getElementById("wpisz_litere").value;
-  console.log(liter);
-  console.log(getRandomInt(10,20));
+function sprawdzLitere(){
+  var input = document.getElementById(S_ENTERNUMBER)
+  var letter = input.value.toUpperCase();
+  console.log(letter);
+  input.value = '';
+  if (letter.length > 1)
+  {
+    console.log("More than one letter");
+    lifeLost();
+  }
+  else
+  {
+    found = false;
+    for (var i = 0; i < answer.length; i++)
+    {
+      if (letter == answer[i])
+      {
+        point(letter);
+        show(letter);
+        found = true;
+      }
+    }
+    if (!found)
+    {
+      addElement(S_WRAP, S_SELECTED, letter, S_LETTERS);
+      lifeLost();
+    }
+  }
 }
 
 function startGame(){
-  var wrap = document.getElementById("wrap").style.visibility='visible';
-}
-function displayAboutAuthor(){
-  var wrap = document.getElementById("wrap").style.visibility='visible';
+  document.getElementById(S_WRAP).style.visibility=S_VISIBLE;
+  game.zdobyte = START_SCORE;
+  game.zycia = START_LIFES;
+  newGame();
 }
 
-
-function addElement(mydiv)
+function newGame()
 {
+  clearPrevGame();
+  document.getElementById(S_LIVES).innerHTML = game.zycia;
+  document.getElementById(S_SCORE).innerHTML = game.zdobyte;
+  var index = getRandomInt(0, data.length);
+  answer = data[index][S_COUNTRY].toUpperCase();
+  console.log(answer);
+  for (var i = 0; i < answer.length; i++)
+  {
+    var letter = answer[i];
+    if (letter == ' ')
+    {
+      addElement(S_WRAP, S_PASS, '_', S_SPACES);
+    }
+    else
+    {
+      addElement(S_WRAP, S_PASS, letter, S_INVLETTERS);
+    }
+  }
+}
 
-  newDiv = document.createElement("span");
-  newDiv.innerHTML = "dupa";
+function clearPrevGame()
+{
+  var wrap = document.getElementById(S_WRAP);
+  var toRemove = [];
+  toRemove.push(document.getElementsByClassName(S_INVLETTERS));
+  toRemove.push(document.getElementsByClassName(S_SPACES));
+  toRemove.push(document.getElementsByClassName(S_LETTERS));
+  for (var i = 0; i < toRemove.length; i++)
+  {
+    while (toRemove[i][0])
+    {
+      wrap.removeChild(toRemove[i][0]);
+    }
+  }
+}
 
-  my_div = document.getElementById(mydiv);
-  document.body.insertBefore(newDiv, my_div);
+function displayAboutAuthor(){
+  document.getElementById(S_ABOUT).style.visibility=S_VISIBLE;
+}
 
-  newDiv2 = document.createElement("span");
-  newDiv2.innerHTML = "jasiokotek2";
-  document.body.insertBefore(newDiv2, my_div.nextSibling);
+function hideAboutAuthor(){
+  document.getElementById(S_ABOUT).style.visibility=S_HIDDEN;
+}
 
-  newDiv.classList.add("mystyle");
+function addElement(parent, nextElem, value, newClass)
+{
+  var newElement = document.createElement(S_SPAN);
+
+  my_div = document.getElementById(parent);
+  my_div.insertBefore(newElement, document.getElementById(nextElem));
+
+  newElement.classList.add(newClass);
+  newElement.classList.add(value);
+  newElement.innerHTML = value;
+}
+
+function lifeLost()
+{
+  document.getElementById(S_LIVES).innerHTML = --game.zycia;
+  if(game.zycia == 0)
+  {
+    alert("You lost!");
+    startGame();
+  }
+}
+
+function point(letter)
+{
+  answer = answer.replace(letter, '');
+  console.log(answer);
+  game.zdobyte++;
+  document.getElementById(S_SCORE).innerHTML = game.zdobyte;
+  if (answer.length == 0)
+  {
+    game.zdobyte += 5;
+    game.zycia += 5;
+    newGame();
+  }
+}
+
+function show(id)
+{
+  var elements = document.getElementsByClassName(id);
+  for (var i = 0; i < elements.length; i++)
+  {
+    elements[i].style.color=C_BLACK;
+  }
 }
 
 function getRandomInt(min, max) {

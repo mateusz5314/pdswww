@@ -35,10 +35,27 @@
         </div>
         <div id="panstwa"></div>
         <div id="wrap">
+            <table id="board">
+                <tr><td><p>Życia</p></td><td><p id="lives">0</p></td></tr>
+                <tr><td><p>Wynik</p></td><td><p id="score">0</p></td></tr>
+            </table>
+            <p> Hasło do odgadnięcia: </p><p id="pass"></p>
             <input type="text" placeholder="wpisz litere" id="wpisz_litere" value=""/>
             <button id="graj" class="button">GRAJ</button>
+            <p> Wykorzystane litery: </p><p id="selected"></p>
+        </div>
+        <div id="about">
+            <button id="closeAbout" class="button">X</button>
+            <p> Wykonane Przez: Mateusz J. </p>
+            <p> Numer albumu: 224815 </p>
+            <p> Uczelnia: Politechnika Łódzka, Wydział EEIA </p>
+            <p> O mnie: <br /> Student 7 semestru informatyki.
+                Lubie programować i oglądać wyniki mojej pracy.
+                Zawodowo programuje w c++ głównie dla systemów wbudowanych.
+            </p>
         </div>
         <script type="text/javascript" src="countries.js"></script>
+        <script type="text/javascript" src="consts.js"></script>
         <script type="text/javascript" src="fortuna.js"></script>
     </body>
     </html>
